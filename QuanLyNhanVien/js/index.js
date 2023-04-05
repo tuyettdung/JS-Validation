@@ -134,31 +134,32 @@ function suaNV(nvclick) {
 }
 
 //Button cập nhật:
-document.querySelector("#btnCapNhat").onclick = function(){
- var nhanVienEdit = NhanVien();
- nhanVienEdit.tknv = document.querySelector("#tknv").value;
- nhanVienEdit.tenNV = document.querySelector("#name").value;
- nhanVienEdit.email = document.querySelector("#email").value;
- nhanVienEdit.matKhau = document.querySelector("#password").value;
- nhanVienEdit.ngayLam = document.querySelector("#datepicker").value;
- nhanVienEdit.luongCB = document.querySelector("#luongCB").value;
- nhanVienEdit.chucVu = document.querySelector("#chucvu").value;
- nhanVienEdit.gioLam = document.querySelector("#gioLam").value;
+document.querySelector("#btnCapNhat").onclick = function () {
+  var nhanVienEdit = new NhanVien();
+  nhanVienEdit.tknv = document.querySelector("#tknv").value;
+  nhanVienEdit.tenNV = document.querySelector("#name").value;
+  nhanVienEdit.email = document.querySelector("#email").value;
+  nhanVienEdit.matKhau = document.querySelector("#password").value;
+  nhanVienEdit.ngayLam = document.querySelector("#datepicker").value;
+  nhanVienEdit.luongCB = document.querySelector("#luongCB").value;
+  nhanVienEdit.chucVu = document.querySelector("#chucvu").value;
+  nhanVienEdit.gioLam = document.querySelector("#gioLam").value;
 
-for(var i = 0; i < mangNhanVien.length; i++){
-  if( mangNhanVien[i].tknv === nhanVienEdit.tknv){
-    nhanVienEdit.tenNV = mangNhanVien[i].tenNV;
-    nhanVienEdit.email = mangNhanVien[i].email ;
-    nhanVienEdit.matKhau = mangNhanVien[i].matKhau; 
-    nhanVienEdit.ngayLam = mangNhanVien[i].ngayLam ;
-    nhanVienEdit.luongCB = mangNhanVien[i].luongCB ;
-    nhanVienEdit.chucVu = mangNhanVien[i].chucVu ;
-    nhanVienEdit.gioLam = mangNhanVien[i].gioLam ;
+
+  for (var i = 0; i < mangNhanVien.length; i++) {
+    if (mangNhanVien[i].tknv === nhanVienEdit.tknv) {
+      mangNhanVien[i].tenNV = nhanVienEdit.tenNV;
+      mangNhanVien[i].email = nhanVienEdit.email;
+      mangNhanVien[i].matKhau = nhanVienEdit.matKhau;
+      mangNhanVien[i].ngayLam = nhanVienEdit.ngayLam;
+      mangNhanVien[i].luongCB = nhanVienEdit.luongCB;
+      mangNhanVien[i].chucVu = nhanVienEdit.chucVu;
+      mangNhanVien[i].gioLam = nhanVienEdit.gioLam;
+    }
   }
- }
 
-renderTableNhanVien(mangNhanVien);
-}
+  renderTableNhanVien(mangNhanVien);
+};
 
 //Button Xóa:
 function xoaNV(nvClick) {
