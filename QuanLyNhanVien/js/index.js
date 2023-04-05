@@ -1,5 +1,7 @@
 var mangNhanVien = [];
 
+
+
 document.querySelector("#btnThemNV").onclick = function () {
   var nv = new NhanVien();
   nv.tknv = document.querySelector("#tknv").value;
@@ -14,61 +16,12 @@ document.querySelector("#btnThemNV").onclick = function () {
   /**----------- Kiểm tra Validation trước khi thêm nhân viên vào mảng----------- */
   var valid = true;
 
-  //Kiểm tra validation tài khoản nhân viên:
-  function kiemTraTK(value, minLength, maxLength) {
-    var regexTK = /^[0-9]+$/;
-    if (
-      regexTK.test(value) &&
-      value.length >= minLength &&
-      value.length <= maxLength
-    ) {
-      document.querySelector("#tbTKNV").innerHTML = "";
-      return true;
-    }
-    document.querySelector("#tbTKNV").innerHTML = "Tài khoản từ 4-6 ký số!";
-    return false;
-  }
-  //Kiểm tra validation tên nhân viên:
-  function kiemTraTenNV(value) {
-    var regexKyTu =
-      /^[a-zA-Z_Ă€ĂĂ‚ĂƒĂˆĂ‰Ăáº¾ĂŒĂĂ’Ă“Ă”Ă•Ă™ĂÄ‚ÄÄ¨Å¨Æ Ă Ă¡Ă¢Ă£Ă¨Ă©ĂªĂ¬Ă­Ă²Ă³Ă´ĂµĂ¹ĂºÄƒÄ‘Ä©Å©Æ¡Æ¯Ä‚áº áº¢áº¤áº¦áº¨áºªáº¬áº®áº°áº²áº´áº¶" + "áº¸áººáº¼á»€á»€á»‚Æ°Äƒáº¡áº£áº¥áº§áº©áº«áº­áº¯áº±áº³áºµáº·áº¹áº»áº½á»á»á»ƒáº¿á»„á»†á»ˆá»á»Œá»á»á»’á»”á»–á»˜á»á»œá»á» á»¢á»¤á»¦á»¨á»ªá»…á»‡á»‰á»‹á»á»á»‘á»“á»•á»—á»™á»›á»á»Ÿá»¡á»£" + "á»¥á»§á»©á»«á»¬á»®á»°á»²á»´Ăá»¶á»¸á»­á»¯á»±á»³á»µá»·á»¹\\s]+$/;
-    if (regexKyTu.test(value)) {
-      document.querySelector("#tbTen").innerHTML = "";
-      return true;
-    }
-    document.querySelector("#tbTen").innerHTML = "Họ tên chưa đúng định dạng!";
-    return false;
-  }
-  //Kiểm tra validation email
-  function kiemTraEmail(value) {
-    var regexEmail =
-      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    if (regexEmail.test(value)) {
-      document.querySelector("#tbEmail").innerHTML = "";
-      return true;
-    }
-    document.querySelector("#tbEmail").innerHTML = "Email chưa đúng định dạng!";
-    return false;
-  }
-  //Kiểm tra validation password
-  function kiemTraPassword(value) {
-    regexPassword =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{0,}$/;
-    if (regexPassword.test(value)) {
-      document.querySelector("#tbMatKhau").innerHTML = "";
-      return true;
-    }
-    document.querySelector("#tbMatKhau").innerHTML =
-      "Mật Khẩu từ 6-10 ký tự (chứa ít nhất 1 ký tự số, 1 ký tự in hoa, 1 ký tự đặc biệt)";
-    return false;
-  }
-
-  //Kiểm tra các validation:
   valid &=
     kiemTraTK(nv.tknv, 4, 6) &
     kiemTraTenNV(nv.tenNV) &
     kiemTraEmail(nv.email) &
-    kiemTraPassword(nv.matKhau);
+    kiemTraPassword(nv.matKhau,6,10) & kiemTraNgayLam(nv.ngayLam) & kiemTraLuongCB(nv.luongCB,1000000,20000000) & kiemTraChucVu(nv.chucVu) & kiemTraGioLam(nv.gioLam,80,200);
+
   if (!valid) {
     return;
   }
@@ -145,7 +98,19 @@ document.querySelector("#btnCapNhat").onclick = function () {
   nhanVienEdit.chucVu = document.querySelector("#chucvu").value;
   nhanVienEdit.gioLam = document.querySelector("#gioLam").value;
 
+  //Kiểm tra validation:
+  var valid = true;
 
+  valid &=
+    kiemTraTK(nhanVienEdit.tknv, 4, 6) &
+    kiemTraTenNV(nhanVienEdit.tenNV) &
+    kiemTraEmail(nhanVienEdit.email) &
+    kiemTraPassword(nhanVienEdit.matKhau,6,10) & kiemTraNgayLam(nhanVienEdit.ngayLam) & kiemTraLuongCB(nhanVienEdit.luongCB,1000000,20000000) & kiemTraChucVu(nhanVienEdit.chucVu) & kiemTraGioLam(nhanVienEdit.gioLam,80,200);
+
+  if (!valid) {
+    return;
+  }
+   
   for (var i = 0; i < mangNhanVien.length; i++) {
     if (mangNhanVien[i].tknv === nhanVienEdit.tknv) {
       mangNhanVien[i].tenNV = nhanVienEdit.tenNV;
